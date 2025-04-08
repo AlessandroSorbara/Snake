@@ -15,4 +15,12 @@ public class Snake {
         this.direction = Direction.RIGHT;
         this.alive = true;
     }
+
+    void grow() {
+
+    }
+
+    void move(Direction direction) {
+
+    }
 }
