@@ -1,5 +1,5 @@
 package com.snakegame.model;
 
-public class Snake {
+public class Apple {
 
 }
