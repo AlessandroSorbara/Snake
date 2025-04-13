@@ -51,6 +51,6 @@ public class Point {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof Point p)) return false;
-        return x == p.x && y == p.y;
+        return x == p.getX() && y == p.getY();
     }
 }

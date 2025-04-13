@@ -15,12 +15,10 @@ public class Apple {
     private static final Random RANDOM = new Random();
 
     /**
-     * Constructs a new apple at the specified position.
-     *
-     * @param position the position of the apple on the game board
+     * Constructs the first apple in a default position.
      */
-    public Apple(Point position) {
-        this.position = position;
+    public Apple() {
+        this.position = new Point(12,7);
     }
 
     /**
@@ -41,12 +39,16 @@ public class Apple {
         this.position = position;
     }
 
-    private boolean isPositionOccupied(Point point) {
-        // TODO
-        return false;
-    }
-
+    /**
+     * Relocates the apple in a new in-bound position.
+     * Doesn't check if the position is occupied.
+     */
     public void relocate() {
-        // TODO
+        Random random = new Random();
+
+        int x = random.nextInt(Board.WIDTH);
+        int y = random.nextInt(Board.HEIGHT);
+
+        this.position = new Point(x, y);
     }
 }

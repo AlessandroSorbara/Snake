@@ -69,8 +69,22 @@ public class Segment {
         return switch (direction) {
             case UP -> new Segment(new Point(position.getX(), position.getY() - 1), direction);
             case DOWN -> new Segment(new Point(position.getX(), position.getY() + 1), direction);
-            case LEFT -> new Segment(new Point(position.getX() - 1, position.getY() - 1), direction);
-            case RIGHT -> new Segment(new Point(position.getX() + 1, position.getY() - 1), direction);
+            case LEFT -> new Segment(new Point(position.getX() - 1, position.getY()), direction);
+            case RIGHT -> new Segment(new Point(position.getX() + 1, position.getY()), direction);
         };
+    }
+
+    /**
+     * Checks if this segment is equal to another segment.
+     * Two points are equal if their position and direction is the same.
+     *
+     * @param obj the object to compare to
+     * @return true if the segments are the same; false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Segment s)) return false;
+        return position == s.getPosition() && direction == s.getDirection();
     }
 }
