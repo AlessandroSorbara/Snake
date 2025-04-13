@@ -1,5 +1,6 @@
 package com.snakegame.model;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author Alessandro Sorbara
  */
-public class Snake {
+public class Snake implements Iterable<Segment> {
 
     private List<Segment> body;
 
@@ -28,6 +29,15 @@ public class Snake {
         body.add(new Segment(new Point(2, 7), Direction.RIGHT));
         body.add(new Segment(new Point(3, 7), Direction.RIGHT));
         body.add(new Segment(new Point(4, 7), Direction.RIGHT));
+    }
+
+    /**
+     * Returns the body of the snake as a linked list of segments.
+     *
+     * @return the body of the snake
+     */
+    public List<Segment> getBody() {
+        return body;
     }
 
     /**
@@ -113,5 +123,16 @@ public class Snake {
         }
 
         return false;
+    }
+
+    /**
+     * Returns an iterator over the segments of the snake's body.
+     * This allows the snake to be used in enhanced for-loops.
+     *
+     * @return An iterator over the snake's body segments.
+     */
+    @Override
+    public Iterator<Segment> iterator() {
+        return body.iterator();
     }
 }

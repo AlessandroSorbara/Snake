@@ -38,17 +38,4 @@ public class Apple {
     public void setPosition(Point position) {
         this.position = position;
     }
-
-    /**
-     * Relocates the apple in a new in-bound position.
-     * Doesn't check if the position is occupied.
-     */
-    public void relocate() {
-        Random random = new Random();
-
-        int x = random.nextInt(Board.WIDTH);
-        int y = random.nextInt(Board.HEIGHT);
-
-        this.position = new Point(x, y);
-    }
 }

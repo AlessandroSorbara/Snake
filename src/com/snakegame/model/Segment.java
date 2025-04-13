@@ -85,6 +85,6 @@ public class Segment {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof Segment s)) return false;
-        return position == s.getPosition() && direction == s.getDirection();
+        return position.equals(s.getPosition()) && direction.equals(s.getDirection());
     }
 }
