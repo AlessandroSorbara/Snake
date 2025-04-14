@@ -18,7 +18,7 @@ public class Apple {
      * Constructs the first apple in a default position.
      */
     public Apple() {
-        this.position = new Point(12,7);
+        this.position = new Point(2,7);
     }
 
     /**

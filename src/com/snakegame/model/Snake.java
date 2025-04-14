@@ -26,9 +26,9 @@ public class Snake implements Iterable<Segment> {
      * Initializes the snake's body with three segments.
      */
     private void initializeSnake() {
-        body.add(new Segment(new Point(2, 7), Direction.RIGHT));
-        body.add(new Segment(new Point(3, 7), Direction.RIGHT));
-        body.add(new Segment(new Point(4, 7), Direction.RIGHT));
+        body.add(new Segment(new Point(12, 7), Direction.LEFT));
+        body.add(new Segment(new Point(13, 7), Direction.LEFT));
+        body.add(new Segment(new Point(14, 7), Direction.LEFT));
     }
 
     /**
