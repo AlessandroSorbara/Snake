@@ -17,8 +17,8 @@ public class GamePanel extends JPanel {
     private Board board;
     private Map<String, BufferedImage> sprites;
 
-    public GamePanel(Board board) {
-        this.board = board;
+    public GamePanel(Board model) {
+        this.board = model;
         this.sprites = SpriteLoader.loadSprites();
         setPreferredSize(new Dimension(680, 600));
     }
