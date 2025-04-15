@@ -1,2 +1,2 @@
 # Snake
-Simple snake game in Java Swing using MVC pattern.
+Simple Java Swing snake game which follows MVC pattern.
