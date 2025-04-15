@@ -98,17 +98,6 @@ public class Snake implements Iterable<Segment> {
     }
 
     /**
-     * Checks if the snake can change its direction to the specified direction.
-     * The snake cannot do 180° movements.
-     *
-     * @param direction The direction to check.
-     * @return true if the snake can change direction, false otherwise.
-     */
-    public boolean canChangeDirection(Direction direction) {
-        return !head().getDirection().isOpposite(direction);
-    }
-
-    /**
      * Checks if the snake will collide with itself on the next move.
      *
      * @return true if the snake will collide with itself, false otherwise.

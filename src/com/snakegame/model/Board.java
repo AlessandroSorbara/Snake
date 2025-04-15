@@ -25,7 +25,7 @@ public class Board {
     public Board() {
         this.snake = new Snake();
         this.apple = new Apple();
-        this.gameState = gameState;
+        this.gameState = new GameState();
     }
 
     /**
@@ -70,7 +70,7 @@ public class Board {
      * If a collision is detected, the game is over.
      */
     private void checkBoundaryCollision() {
-        if (isOutOfBounds(snake.head().nextSegmentInDirection().getPosition())) {
+        if (isOutOfBounds(snake.head().getPosition())) {
             gameState.setGameOver();
         }
     }
@@ -118,21 +118,19 @@ public class Board {
             return;
         }
 
-        if (snake.canChangeDirection(direction)) {
-            snake.move(direction);
+        snake.move(direction);
 
-            if (snake.head().getPosition().equals(apple.getPosition())) {
-                gameState.incrementScore();
-                snake.grow();
-                spawnApple();
-            }
-
-            if (snake.willCollideItself()) {
-                gameState.setGameOver();
-            }
-
-            checkBoundaryCollision();
+        if (snake.head().getPosition().equals(apple.getPosition())) {
+            gameState.incrementScore();
+            snake.grow();
+            spawnApple();
         }
+
+        if (snake.willCollideItself()) {
+            gameState.setGameOver();
+        }
+
+        checkBoundaryCollision();
     }
 
     /**
