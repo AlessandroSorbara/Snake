@@ -6,15 +6,27 @@ import com.snakegame.view.GameFrame;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * Controller class that handles keyboard input and updates the game loop for the Snake game.
+ * It listens for key presses to change the snake's direction and uses a timer to move the snake periodically.
+ *
+ * @author Alessandro Sorbara
+ */
 public class Controller implements KeyListener, ActionListener {
 
     private static final int DELAY = 100;
-
     private final Board model;
     private final GameFrame view;
     private final Timer timer;
     private Direction inputDirection;
 
+    /**
+     * Creates a new Controller with the given game model and view.
+     * Initializes key listeners and prepares the game timer.
+     *
+     * @param model the game model containing logic and state
+     * @param view the game view responsible for rendering
+     */
     public Controller(Board model, GameFrame view) {
         this.model = model;
         this.view = view;
@@ -29,12 +41,24 @@ public class Controller implements KeyListener, ActionListener {
         timer = new Timer(DELAY, this);
     }
 
+    /**
+     * Called periodically by the timer to advance the game state.
+     * Moves the snake and repaints the game view.
+     *
+     * @param e the ActionEvent triggered by the timer
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         model.moveSnake(inputDirection);
         view.repaint();
     }
 
+    /**
+     * Handles key presses to start the game or change the snake's direction.
+     * Prevents reversal into the opposite direction.
+     *
+     * @param e the KeyEvent representing the key press
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         if (!model.getGameState().isGameStarted()) {
@@ -63,6 +87,17 @@ public class Controller implements KeyListener, ActionListener {
         }
     }
 
+    /**
+     * Unused method required by the KeyListener interface.
+     *
+     * @param e the KeyEvent
+     */
     @Override public void keyReleased(KeyEvent e) {}
+
+    /**
+     * Unused method required by the KeyListener interface.
+     *
+     * @param e the KeyEvent
+     */
     @Override public void keyTyped(KeyEvent e) {}
 }
