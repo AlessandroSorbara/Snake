@@ -71,7 +71,7 @@ public class Board {
      */
     private void checkBoundaryCollision() {
         if (isOutOfBounds(snake.head().getPosition())) {
-            gameState.setGameOver();
+            gameState.end();
         }
     }
 
@@ -127,7 +127,7 @@ public class Board {
         }
 
         if (snake.willCollideItself()) {
-            gameState.setGameOver();
+            gameState.end();
         }
 
         checkBoundaryCollision();

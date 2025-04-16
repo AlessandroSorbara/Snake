@@ -13,14 +13,12 @@ public class Controller implements KeyListener, ActionListener {
     private final Board model;
     private final GameFrame view;
     private final Timer timer;
-    private boolean gameStarted;
-    private Direction currentDirection;
+    private Direction inputDirection;
 
     public Controller(Board model, GameFrame view) {
         this.model = model;
         this.view = view;
-        this.gameStarted = false;
-        currentDirection = Direction.LEFT;
+        inputDirection = Direction.LEFT;
 
         view.addKeyListener(this);
         JPanel panel = view.getGamePanel();
@@ -33,35 +31,35 @@ public class Controller implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        model.moveSnake(currentDirection);
+        model.moveSnake(inputDirection);
         view.repaint();
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (!gameStarted) {
+        if (!model.getGameState().isGameStarted()) {
             timer.start();
-            gameStarted = true;
+            model.getGameState().start();
         }
 
-        Direction newDirection = currentDirection;
+        Direction newDirection = inputDirection;
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W, KeyEvent.VK_UP:
-                if (currentDirection != Direction.DOWN) newDirection = Direction.UP;
+                if (inputDirection != Direction.DOWN) newDirection = Direction.UP;
                 break;
             case KeyEvent.VK_S, KeyEvent.VK_DOWN:
-                if (currentDirection != Direction.UP) newDirection = Direction.DOWN;
+                if (inputDirection != Direction.UP) newDirection = Direction.DOWN;
                 break;
             case KeyEvent.VK_A, KeyEvent.VK_LEFT:
-                if (currentDirection != Direction.RIGHT) newDirection = Direction.LEFT;
+                if (inputDirection != Direction.RIGHT) newDirection = Direction.LEFT;
                 break;
             case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
-                if (currentDirection != Direction.LEFT) newDirection = Direction.RIGHT;
+                if (inputDirection != Direction.LEFT) newDirection = Direction.RIGHT;
                 break;
         }
 
-        if (newDirection != currentDirection) {
-            currentDirection = newDirection;
+        if (newDirection != inputDirection) {
+            inputDirection = newDirection;
         }
     }
 

@@ -9,6 +9,7 @@ package com.snakegame.model;
 public class GameState {
 
     private int score;
+    private boolean gameStarted;
     private boolean gameOver;
 
     /**
@@ -16,6 +17,7 @@ public class GameState {
      */
     public GameState() {
         this.score = 0;
+        this.gameStarted = false;
         this.gameOver = false;
     }
 
@@ -46,9 +48,25 @@ public class GameState {
     }
 
     /**
+     * Checks if the game is started.
+     *
+     * @return true if the game is started, false otherwise
+     */
+    public boolean isGameStarted() {
+        return gameStarted;
+    }
+
+    /**
+     * Sets the game started flag to true, indicating that the game is started.
+     */
+    public void start() {
+        gameStarted = true;
+    }
+
+    /**
      * Sets the game over flag to true, indicating that the game has ended.
      */
-    public void setGameOver() {
+    public void end() {
         gameOver = true;
     }
 
