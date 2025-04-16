@@ -93,14 +93,14 @@ public class GamePanel extends JPanel {
             Point pos = s.getPosition();
             BufferedImage snakeSegmentSprite = null;
 
-            if (i == snake.getBody().indexOf(snake.head())) {
+            if (i == 0) {
                 switch (s.getDirection()) {
                     case UP -> snakeSegmentSprite = sprites.get("head_up");
                     case DOWN -> snakeSegmentSprite = sprites.get("head_down");
                     case LEFT -> snakeSegmentSprite = sprites.get("head_left");
                     case RIGHT -> snakeSegmentSprite = sprites.get("head_right");
                 }
-            } else if (i == snake.getBody().indexOf(snake.tail())) {
+            } else if (i == snake.getBody().size() - 1) {
                 switch (s.getDirection()) {
                     case UP -> snakeSegmentSprite = sprites.get("tail_down");
                     case DOWN -> snakeSegmentSprite = sprites.get("tail_up");
@@ -108,8 +108,8 @@ public class GamePanel extends JPanel {
                     case RIGHT -> snakeSegmentSprite = sprites.get("tail_left");
                 }
             } else {
-                Direction prev = snake.getBody().get(i - 1).getDirection();
-                Direction next = snake.getBody().get(i + 1).getDirection();
+                Direction prev = snake.getBody().get(i + 1).getDirection();
+                Direction next = snake.getBody().get(i - 1).getDirection();
 
                 if ((prev.equals(Direction.RIGHT) && next.equals(Direction.DOWN)) || (prev.equals(Direction.UP) && next.equals(Direction.LEFT))) {
                     snakeSegmentSprite = sprites.get("body_bottomleft");

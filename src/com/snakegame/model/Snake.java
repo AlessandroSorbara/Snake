@@ -13,6 +13,7 @@ import java.util.List;
 public class Snake implements Iterable<Segment> {
 
     private List<Segment> body;
+    private int factor;
 
     /**
      * Constructs a new Snake object and initializes its body.
@@ -66,15 +67,14 @@ public class Snake implements Iterable<Segment> {
      * @param direction The new direction for the snake's head.
      */
     public void move(Direction direction) {
-        Segment head = head();
-        head.setDirection(direction);
+        Segment dummy = new Segment(head().getPosition(), direction);
+        Segment newHead = dummy.nextSegmentInDirection();
+        body.add(0, newHead);
 
         for (int i = body.size() - 1; i > 0; i--) {
             body.get(i).setDirection(body.get(i - 1).getDirection());
         }
 
-        Segment newHead = head.nextSegmentInDirection();
-        body.add(0, newHead);
         body.remove(tail());
     }
 
