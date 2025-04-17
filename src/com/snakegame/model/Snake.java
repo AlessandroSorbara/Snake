@@ -10,108 +10,85 @@ import java.util.List;
  *
  * @author Alessandro Sorbara
  */
-public class Snake implements Iterable<Segment> {
+public class Snake implements Iterable<Point> {
 
-    private List<Segment> body;
-    private int factor;
+    private List<Point> body;
+    private boolean grows;
 
     /**
      * Constructs a new Snake object and initializes its body.
      */
     public Snake() {
-        this.body = new LinkedList<Segment>();
+        this.body = new LinkedList<Point>();
         initializeSnake();
+        grows = false;
     }
 
     /**
      * Initializes the snake's body with three segments.
      */
     private void initializeSnake() {
-        body.add(new Segment(new Point(12, 7), Direction.LEFT));
-        body.add(new Segment(new Point(13, 7), Direction.LEFT));
-        body.add(new Segment(new Point(14, 7), Direction.LEFT));
+        body.add(new Point(12, 7));
+        body.add(new Point(13, 7));
+        body.add(new Point(14, 7));
     }
 
     /**
-     * Returns the body of the snake as a linked list of segments.
+     * Returns the body of the snake as a linked list of points.
      *
      * @return the body of the snake
      */
-    public List<Segment> getBody() {
+    public List<Point> getBody() {
         return body;
     }
 
     /**
-     * Returns the head of the snake (the first segment in the list).
+     * Returns the head of the snake (the first point in the list).
      *
-     * @return The head segment of the snake.
+     * @return The head point of the snake.
      */
-    public Segment head() {
+    public Point head() {
         return body.get(0);
     }
 
     /**
-     * Returns the tail of the snake (the last segment in the list).
+     * Returns the tail of the snake (the last point in the list).
      *
      * @return The tail segment of the snake.
      */
-    public Segment tail() {
+    public Point tail() {
         return body.get(body.size() - 1);
     }
 
     /**
      * Moves the snake in the specified direction.
-     * The head's direction is updated, and each subsequent segment follows the previous one.
-     * The tail is removed to simulate movement.
+     * If the snake is set to grow, it adds a new head segment in the given direction
+     * without removing the tail. Otherwise, it removes the tail to maintain the same length.
      *
-     * @param direction The new direction for the snake's head.
+     * @param direction the direction in which to move the snake.
      */
     public void move(Direction direction) {
-        Segment dummy = new Segment(head().getPosition(), direction);
-        Segment newHead = dummy.nextSegmentInDirection();
-        body.add(0, newHead);
-
-        for (int i = body.size() - 1; i > 0; i--) {
-            body.get(i).setDirection(body.get(i - 1).getDirection());
-        }
-
-        body.remove(tail());
-    }
-
-    /**
-     * Grows the snake by adding a new segment to the tail in the direction the tail is facing.
-     */
-    public void grow() {
-        Segment tail = tail();
-        Point tailPos = tail.getPosition();
-        Direction tailDir = tail.getDirection();
-
-        Point newTailPos = switch (tailDir) {
-            case UP -> new Point(tailPos.getX(), tailPos.getY() + 1);
-            case DOWN -> new Point(tailPos.getX(), tailPos.getY() - 1);
-            case LEFT -> new Point(tailPos.getX() + 1, tailPos.getY());
-            case RIGHT -> new Point(tailPos.getX() - 1, tailPos.getY());
+        Point delta = switch (direction) {
+            case UP -> new Point(0, -1);
+            case DOWN -> new Point(0, 1);
+            case LEFT -> new Point(-1, 0);
+            case RIGHT -> new Point(1, 0);
         };
 
-        Segment newTail = new Segment(newTailPos, tailDir);
-        body.add(newTail);
+        Point newHead = Point.add(head(), delta);
+
+        if (!grows) body.remove(tail());
+        else grows = false;
+
+        body.add(0, newHead);
     }
 
     /**
-     * Checks if the snake will collide with itself on the next move.
-     *
-     * @return true if the snake will collide with itself, false otherwise.
+     * Sets the snake to grow on the next move.
+     * This is typically called when the snake eats food, causing its length to increase.
      */
-    public boolean willCollideItself() {
-        Point nextHeadPos = head().nextSegmentInDirection().getPosition();
-
-        for (int i = 1; i < body.size(); i++) {
-            if (body.get(i).getPosition().equals(nextHeadPos)) {
-                return true;
-            }
-        }
-
-        return false;
+    public void grow() {
+        grows = true;
     }
 
     /**
@@ -121,7 +98,7 @@ public class Snake implements Iterable<Segment> {
      * @return An iterator over the snake's body segments.
      */
     @Override
-    public Iterator<Segment> iterator() {
+    public Iterator<Point> iterator() {
         return body.iterator();
     }
 }

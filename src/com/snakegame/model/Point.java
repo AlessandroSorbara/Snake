@@ -8,8 +8,8 @@ package com.snakegame.model;
  */
 public class Point {
 
-    private final int x;
-    private final int y;
+    private int x;
+    private int y;
 
     /**
      * Constructs a new point with the given x and y coordinates.
@@ -42,12 +42,25 @@ public class Point {
 
     /**
      * Utility method that returns a new point that represents
+     * the sum of two given points given in input.
+     * Very usefull in determining snake movement.
+     *
+     * @param p1 first point
+     * @param p2 second point
+     * @return the points sum
+     */
+    public static Point add(Point p1, Point p2) {
+        return new Point(p1.getX() + p2.getX(), p1.getY() + p2.getY());
+    }
+
+    /**
+     * Utility method that returns a new point that represents
      * the subtraction of two given points given in input.
      * Very usefull in determining snake segments direction.
      *
      * @param p1 first point
      * @param p2 second point
-     * @return the point subtraction
+     * @return the points subtraction
      */
     public static Point sub(Point p1, Point p2) {
         return new Point(p1.getX() - p2.getX(), p1.getY() - p2.getY());

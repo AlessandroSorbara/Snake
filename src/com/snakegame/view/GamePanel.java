@@ -81,47 +81,46 @@ public class GamePanel extends JPanel {
     }
 
     /**
-     * Draws the snake on the board segment by segment using appropriate sprites.
-     * Handles direction-based sprite selection for head, body turns, and tail.
+     * Draws the snake on the board point by point using appropriate sprites.
+     * Handles direction-based sprite selection for head, body turns and tail.
      *
      * @param g the Graphics context to draw on
      * @param snake the Snake object to render
      */
     private void drawSnake(Graphics g, Snake snake) {
         for (int i = 0; i < snake.getBody().size(); i++) {
-            Segment s = snake.getBody().get(i);
-            Point pos = s.getPosition();
-            BufferedImage snakeSegmentSprite = null;
+            Point s = snake.getBody().get(i);
+            BufferedImage sprite = null;
 
             if (i == 0) {
-                Point headRelation = Point.sub(snake.getBody().get(1).getPosition(), snake.getBody().get(0).getPosition());
-                if (headRelation.equals(new Point(1, 0))) snakeSegmentSprite = sprites.get("head_left");
-                else if (headRelation.equals(new Point(-1, 0))) snakeSegmentSprite = sprites.get("head_right");
-                else if (headRelation.equals(new Point(0, 1))) snakeSegmentSprite = sprites.get("head_up");
-                else if (headRelation.equals(new Point(0, -1))) snakeSegmentSprite = sprites.get("head_down");
+                Point headRelation = Point.sub(snake.getBody().get(1), snake.head());
+                if (headRelation.equals(new Point(1, 0))) sprite = sprites.get("head_left");
+                else if (headRelation.equals(new Point(-1, 0))) sprite = sprites.get("head_right");
+                else if (headRelation.equals(new Point(0, 1))) sprite = sprites.get("head_up");
+                else if (headRelation.equals(new Point(0, -1))) sprite = sprites.get("head_down");
 
             } else if (i == snake.getBody().size() - 1) {
-                Point tailRelation = Point.sub(snake.getBody().get(snake.getBody().size() - 2).getPosition(), snake.getBody().get(snake.getBody().size() - 1).getPosition());
+                Point tailRelation = Point.sub(snake.getBody().get(snake.getBody().size() - 2), snake.tail());
 
-                if (tailRelation.equals(new Point(1, 0))) snakeSegmentSprite = sprites.get("tail_left");
-                else if (tailRelation.equals(new Point(-1, 0))) snakeSegmentSprite = sprites.get("tail_right");
-                else if (tailRelation.equals(new Point(0, 1))) snakeSegmentSprite = sprites.get("tail_up");
-                else if (tailRelation.equals(new Point(0, -1))) snakeSegmentSprite = sprites.get("tail_down");
+                if (tailRelation.equals(new Point(1, 0))) sprite = sprites.get("tail_left");
+                else if (tailRelation.equals(new Point(-1, 0))) sprite = sprites.get("tail_right");
+                else if (tailRelation.equals(new Point(0, 1))) sprite = sprites.get("tail_up");
+                else if (tailRelation.equals(new Point(0, -1))) sprite = sprites.get("tail_down");
 
             } else {
-                Point prev = Point.sub(snake.getBody().get(i + 1).getPosition(), s.getPosition());
-                Point next = Point.sub(snake.getBody().get(i - 1).getPosition(), s.getPosition());
+                Point prev = Point.sub(snake.getBody().get(i + 1), s);
+                Point next = Point.sub(snake.getBody().get(i - 1), s);
 
-                if (prev.getY() == next.getY()) snakeSegmentSprite = sprites.get("body_horizontal");
-                else if (prev.getX() == next.getX()) snakeSegmentSprite = sprites.get("body_vertical");
+                if (prev.getY() == next.getY()) sprite = sprites.get("body_horizontal");
+                else if (prev.getX() == next.getX()) sprite = sprites.get("body_vertical");
 
-                else if ((prev.getX() == -1 && next.getY() == -1) || (prev.getY() == -1 && next.getX() == -1)) snakeSegmentSprite = sprites.get("body_topleft");
-                else if ((prev.getX() == -1 && next.getY() == 1) || (prev.getY() == 1 && next.getX() == -1)) snakeSegmentSprite = sprites.get("body_bottomleft");
-                else if ((prev.getX() == 1 && next.getY() == -1) || (prev.getY() == -1 && next.getX() == 1)) snakeSegmentSprite = sprites.get("body_topright");
-                else if ((prev.getX() == 1 && next.getY() == 1) || (prev.getY() == 1 && next.getX() == 1)) snakeSegmentSprite = sprites.get("body_bottomright");
+                else if ((prev.getX() == -1 && next.getY() == -1) || (prev.getY() == -1 && next.getX() == -1)) sprite = sprites.get("body_topleft");
+                else if ((prev.getX() == -1 && next.getY() == 1) || (prev.getY() == 1 && next.getX() == -1)) sprite = sprites.get("body_bottomleft");
+                else if ((prev.getX() == 1 && next.getY() == -1) || (prev.getY() == -1 && next.getX() == 1)) sprite = sprites.get("body_topright");
+                else if ((prev.getX() == 1 && next.getY() == 1) || (prev.getY() == 1 && next.getX() == 1)) sprite = sprites.get("body_bottomright");
             }
 
-            g.drawImage(snakeSegmentSprite, pos.getX() * TILE_SIZE, pos.getY() * TILE_SIZE, null);
+            g.drawImage(sprite, s.getX() * TILE_SIZE, s.getY() * TILE_SIZE, null);
         }
     }
 }

@@ -56,23 +56,12 @@ public class Board {
     }
 
     /**
-     * Checks if a given position is outside the bounds of the game board.
-     *
-     * @param position the position to check
-     * @return true if the position is out of bounds, false otherwise
+     * Checks if the head of the snake hits the body or if it
+     * is out of the game boundaries, ending the game.
      */
-    private boolean isOutOfBounds(Point position) {
-        return position.getX() < 0 || position.getX() >= WIDTH || position.getY() < 0 || position.getY() >= HEIGHT;
-    }
-
-    /**
-     * Checks if the snake's head is about to collide with the boundary.
-     * If a collision is detected, the game is over.
-     */
-    private void checkBoundaryCollision() {
-        if (isOutOfBounds(snake.head().getPosition())) {
-            gameState.end();
-        }
+    private void checkFail() {
+        if (snake.head().getX() < 0 || snake.head().getX() >= WIDTH || snake.head().getY() < 0 || snake.head().getY() >= HEIGHT) gameState.end();
+        for (int i = 1; i < snake.getBody().size(); i++) if (snake.getBody().get(i).equals(snake.head())) gameState.end();
     }
 
     /**
@@ -83,9 +72,7 @@ public class Board {
      */
     private boolean isPositionOccupied(Point position) {
         if (position.equals(apple.getPosition())) return true;
-        for (Segment s : snake) {
-            if (position.equals(s.getPosition())) return true;
-        }
+        for (Point s : snake) if (position.equals(s)) return true;
         return false;
     }
 
@@ -114,23 +101,17 @@ public class Board {
      * @param direction the direction to move the snake
      */
     public void moveSnake(Direction direction) {
-        if (gameState.isGameOver()) {
-            return;
-        }
+        if (gameState.isGameOver()) return;
 
         snake.move(direction);
 
-        if (snake.head().getPosition().equals(apple.getPosition())) {
-            gameState.incrementScore();
+        if (snake.head().equals(apple.getPosition())) {
             snake.grow();
+            gameState.incrementScore();
             spawnApple();
         }
 
-        if (snake.willCollideItself()) {
-            gameState.end();
-        }
-
-        checkBoundaryCollision();
+        checkFail();
     }
 
     /**

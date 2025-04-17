@@ -15,10 +15,13 @@ import java.awt.event.*;
 public class Controller implements KeyListener, ActionListener {
 
     private static final int DELAY = 100;
+    private final Timer timer;
+
     private final Board model;
     private final GameFrame view;
-    private final Timer timer;
+
     private Direction inputDirection;
+    private boolean directionChanged = false;
 
     /**
      * Creates a new Controller with the given game model and view.
@@ -30,7 +33,7 @@ public class Controller implements KeyListener, ActionListener {
     public Controller(Board model, GameFrame view) {
         this.model = model;
         this.view = view;
-        inputDirection = Direction.LEFT;
+        inputDirection = null;
 
         view.addKeyListener(this);
         JPanel panel = view.getGamePanel();
@@ -51,6 +54,7 @@ public class Controller implements KeyListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
         model.moveSnake(inputDirection);
         view.repaint();
+        directionChanged = false;
     }
 
     /**
@@ -66,7 +70,9 @@ public class Controller implements KeyListener, ActionListener {
             model.getGameState().start();
         }
 
+        if (directionChanged) return;
         Direction newDirection = inputDirection;
+
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W, KeyEvent.VK_UP:
                 if (inputDirection != Direction.DOWN) newDirection = Direction.UP;
@@ -84,8 +90,10 @@ public class Controller implements KeyListener, ActionListener {
 
         if (newDirection != inputDirection) {
             inputDirection = newDirection;
+            directionChanged = true;
         }
     }
+
 
     /**
      * Unused method required by the KeyListener interface.
