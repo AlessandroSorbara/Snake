@@ -14,7 +14,7 @@ import java.awt.event.*;
  */
 public class Controller implements KeyListener, ActionListener {
 
-    private static final int DELAY = 200;
+    private static final int DELAY = 100;
     private final Board model;
     private final GameFrame view;
     private final Timer timer;

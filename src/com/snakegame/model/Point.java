@@ -41,6 +41,19 @@ public class Point {
     }
 
     /**
+     * Utility method that returns a new point that represents
+     * the subtraction of two given points given in input.
+     * Very usefull in determining snake segments direction.
+     *
+     * @param p1 first point
+     * @param p2 second point
+     * @return the point subtraction
+     */
+    public static Point sub(Point p1, Point p2) {
+        return new Point(p1.getX() - p2.getX(), p1.getY() - p2.getY());
+    }
+
+    /**
      * Checks if this point is equal to another point.
      * Two points are equal if their x and y coordinates are the same.
      *
