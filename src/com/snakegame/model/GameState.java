@@ -11,6 +11,7 @@ public class GameState {
     private int score;
     private boolean gameStarted;
     private boolean gameOver;
+    private boolean gameWon;
 
     /**
      * Constructs a new GameState with an initial score of 0 and gameOver set to false.
@@ -19,6 +20,7 @@ public class GameState {
         this.score = 0;
         this.gameStarted = false;
         this.gameOver = false;
+        this.gameWon = false;
     }
 
     /**
@@ -41,10 +43,20 @@ public class GameState {
     /**
      * Checks if the game is over.
      *
-     * @return true if the game is over, false otherwise.
+     * @return true if the game is over, false otherwise
      */
     public boolean isGameOver() {
         return gameOver;
+    }
+
+
+    /**
+     * Checks if the game is won.
+     *
+     * @return true if the game is won, false otherwise
+     */
+    public boolean isGameWon() {
+        return gameWon;
     }
 
     /**
@@ -64,18 +76,26 @@ public class GameState {
     }
 
     /**
-     * Sets the game over flag to true, indicating that the game has ended.
+     * Sets the game over flag to true, indicating that the game has ended and the player lost.
      */
-    public void end() {
+    public void lose() {
         gameOver = true;
     }
 
     /**
-     * Resets the game state, setting the score to 0 and gameOver to false.
+     * Sets the game won flag to true, indicating that the game has ended and the player won.
+     */
+    public void win() {
+        gameWon = true;
+    }
+
+    /**
+     * Resets the game state, setting the score to 0, gameOver and gameWon to false.
      * This method is useful for starting a new game.
      */
     public void reset() {
         this.score = 0;
         this.gameOver = false;
+        this.gameWon = false;
     }
 }

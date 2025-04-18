@@ -48,6 +48,9 @@ public class GamePanel extends JPanel {
         drawBackground(g);
         drawApple(g, board.getApple());
         drawSnake(g, board.getSnake());
+
+        if (board.getGameState().isGameOver()) drawGameState(g, "game_over");
+        if (board.getGameState().isGameWon()) drawGameState(g, "game_won");
     }
 
     /**
@@ -76,8 +79,8 @@ public class GamePanel extends JPanel {
      */
     private void drawApple(Graphics g, Apple apple) {
         Point pos = apple.getPosition();
-        BufferedImage appleSprite = sprites.get("apple");
-        g.drawImage(appleSprite, pos.getX() * TILE_SIZE, pos.getY() * TILE_SIZE, null);
+        BufferedImage sprite = sprites.get("apple");
+        g.drawImage(sprite, pos.getX() * TILE_SIZE, pos.getY() * TILE_SIZE, null);
     }
 
     /**
@@ -122,5 +125,32 @@ public class GamePanel extends JPanel {
 
             g.drawImage(sprite, s.getX() * TILE_SIZE, s.getY() * TILE_SIZE, null);
         }
+    }
+
+    private void drawScore(Graphics g, GameState game) {
+
+    }
+
+    private void drawGameState(Graphics g, String state) {
+        BufferedImage sprite = sprites.get(state);
+
+        int scaledWidth = 230;
+        int scaledHeight = 150;
+
+        int x = (getWidth() - scaledWidth) / 2;
+        int y = (getHeight() - scaledHeight) / 2 - 50;
+
+        g.drawImage(sprite, x, y, scaledWidth, scaledHeight, null);
+
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 14));
+
+        String message = "Press ENTER to restart";
+        FontMetrics metrics = g.getFontMetrics();
+        int textWidth = metrics.stringWidth(message);
+        int textX = (getWidth() - textWidth) / 2;
+        int textY = y + 20;
+
+        g.drawString(message, textX, textY);
     }
 }

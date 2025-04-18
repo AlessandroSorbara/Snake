@@ -60,8 +60,16 @@ public class Board {
      * is out of the game boundaries, ending the game.
      */
     private void checkFail() {
-        if (snake.head().getX() < 0 || snake.head().getX() >= WIDTH || snake.head().getY() < 0 || snake.head().getY() >= HEIGHT) gameState.end();
-        for (int i = 1; i < snake.getBody().size(); i++) if (snake.getBody().get(i).equals(snake.head())) gameState.end();
+        if (snake.head().getX() < 0 || snake.head().getX() >= WIDTH || snake.head().getY() < 0 || snake.head().getY() >= HEIGHT) gameState.lose();
+        for (int i = 1; i < snake.getBody().size(); i++) if (snake.getBody().get(i).equals(snake.head())) gameState.lose();
+    }
+
+    /**
+     * Checks if the current size of the snake is equal to the number of
+     * tiles (HEIGHT * WIDTH), setting the game state to won.
+     */
+    private void checkWin() {
+        if (snake.getBody().size() == HEIGHT * WIDTH) gameState.win();
     }
 
     /**
@@ -97,6 +105,7 @@ public class Board {
      * Checks for apple collision, self-collision, and boundary collisions.
      * If the snake eats an apple, it grows and the score is incremented.
      * If the snake collides with itself or the boundary, the game ends.
+     * If the snake covers all the board, the game has been won.
      *
      * @param direction the direction to move the snake
      */
@@ -107,6 +116,7 @@ public class Board {
 
         if (snake.head().equals(apple.getPosition())) {
             snake.grow();
+            checkWin();
             gameState.incrementScore();
             spawnApple();
         }
