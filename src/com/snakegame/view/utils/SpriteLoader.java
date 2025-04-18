@@ -42,8 +42,6 @@ public class SpriteLoader {
             map.put("tail_left", loadImage("/sprites/tail_left.png"));
             map.put("tail_right", loadImage("/sprites/tail_right.png"));
             map.put("tail_up", loadImage("/sprites/tail_up.png"));
-            map.put("game_over", loadImage("/sprites/lost.png"));
-            map.put("game_won", loadImage("/sprites/won.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

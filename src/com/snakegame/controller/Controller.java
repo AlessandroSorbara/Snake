@@ -2,6 +2,7 @@ package com.snakegame.controller;
 
 import com.snakegame.model.Board;
 import com.snakegame.model.Direction;
+import com.snakegame.model.Snake;
 import com.snakegame.view.GameFrame;
 import javax.swing.*;
 import java.awt.event.*;
@@ -52,8 +53,12 @@ public class Controller implements KeyListener, ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        model.moveSnake(inputDirection);
+        if (model.getGameState().isGameOver()) {
+            timer.stop();
+        }
+
         view.repaint();
+        model.moveSnake(inputDirection);
         directionChanged = false;
     }
 
@@ -65,6 +70,13 @@ public class Controller implements KeyListener, ActionListener {
      */
     @Override
     public void keyPressed(KeyEvent e) {
+        if (model.getGameState().isGameOver()) {
+            model.resetBoard();
+            inputDirection = Direction.LEFT;
+            timer.start();
+            return;
+        }
+
         if (!model.getGameState().isGameStarted()) {
             timer.start();
             model.getGameState().start();
@@ -93,7 +105,6 @@ public class Controller implements KeyListener, ActionListener {
             directionChanged = true;
         }
     }
-
 
     /**
      * Unused method required by the KeyListener interface.

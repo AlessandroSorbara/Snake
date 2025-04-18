@@ -44,13 +44,11 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         drawBackground(g);
         drawApple(g, board.getApple());
         drawSnake(g, board.getSnake());
-
-        if (board.getGameState().isGameOver()) drawGameState(g, "game_over");
-        if (board.getGameState().isGameWon()) drawGameState(g, "game_won");
+        drawScore(g, board.getGameState());
+        if (board.getGameState().isGameOver()) drawRestart(g);
     }
 
     /**
@@ -127,30 +125,31 @@ public class GamePanel extends JPanel {
         }
     }
 
-    private void drawScore(Graphics g, GameState game) {
-
+    /**
+     * Draws the restart prompt.
+     *
+     * @param g the Graphics context to draw on
+     */
+    private void drawRestart(Graphics g) {
+        g.setColor(Color.RED);
+        g.setFont(new Font("Monospaced", Font.BOLD, 20));
+        String message = "Press any key to restart";
+        FontMetrics fm = g.getFontMetrics();
+        int x = (getWidth() - fm.stringWidth(message)) / 2;
+        int y = getHeight() / 2;
+        g.drawString(message, x, y);
     }
 
-    private void drawGameState(Graphics g, String state) {
-        BufferedImage sprite = sprites.get(state);
-
-        int scaledWidth = 230;
-        int scaledHeight = 150;
-
-        int x = (getWidth() - scaledWidth) / 2;
-        int y = (getHeight() - scaledHeight) / 2 - 50;
-
-        g.drawImage(sprite, x, y, scaledWidth, scaledHeight, null);
-
+    /**
+     * Draws the score.
+     *
+     * @param g the Graphics context to draw on
+     * @param snake the GameState object to access score
+     */
+    private void drawScore(Graphics g, GameState game) {
         g.setColor(Color.WHITE);
-        g.setFont(new Font("Arial", Font.BOLD, 14));
-
-        String message = "Press ENTER to restart";
-        FontMetrics metrics = g.getFontMetrics();
-        int textWidth = metrics.stringWidth(message);
-        int textX = (getWidth() - textWidth) / 2;
-        int textY = y + 20;
-
-        g.drawString(message, textX, textY);
+        g.setFont(new Font("Monospaced", Font.BOLD, 20));
+        String scoreText = "Score: " + game.getScore();
+        g.drawString(scoreText, 10, 30);
     }
 }

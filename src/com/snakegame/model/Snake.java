@@ -25,9 +25,10 @@ public class Snake implements Iterable<Point> {
     }
 
     /**
-     * Initializes the snake's body with three segments.
+     * Initializes the snake's body clearing it and then adding three points.
      */
-    private void initializeSnake() {
+    public void initializeSnake() {
+        body.clear();
         body.add(new Point(12, 7));
         body.add(new Point(13, 7));
         body.add(new Point(14, 7));

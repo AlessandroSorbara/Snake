@@ -65,14 +65,6 @@ public class Board {
     }
 
     /**
-     * Checks if the current size of the snake is equal to the number of
-     * tiles (HEIGHT * WIDTH), setting the game state to won.
-     */
-    private void checkWin() {
-        if (snake.getBody().size() == HEIGHT * WIDTH) gameState.win();
-    }
-
-    /**
      * Checks if a given position is occupied by either the snake or the apple.
      *
      * @param position the position to check
@@ -110,13 +102,10 @@ public class Board {
      * @param direction the direction to move the snake
      */
     public void moveSnake(Direction direction) {
-        if (gameState.isGameOver()) return;
-
         snake.move(direction);
 
         if (snake.head().equals(apple.getPosition())) {
             snake.grow();
-            checkWin();
             gameState.incrementScore();
             spawnApple();
         }
@@ -128,7 +117,7 @@ public class Board {
      * Resets the board, reinitializing the snake, apple, and game state.
      */
     public void resetBoard() {
-        snake = new Snake();
+        snake.initializeSnake();
         apple = new Apple();
         gameState.reset();
     }
