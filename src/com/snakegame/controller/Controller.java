@@ -4,6 +4,7 @@ import com.snakegame.model.Board;
 import com.snakegame.model.Direction;
 import com.snakegame.model.Snake;
 import com.snakegame.view.GameFrame;
+import com.snakegame.view.utils.SoundManager;
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -17,6 +18,8 @@ public class Controller implements KeyListener, ActionListener {
 
     private static final int DELAY = 100;
     private final Timer timer;
+
+    private final SoundManager soundManager;
 
     private final Board model;
     private final GameFrame view;
@@ -43,11 +46,13 @@ public class Controller implements KeyListener, ActionListener {
         panel.requestFocusInWindow();
 
         timer = new Timer(DELAY, this);
+        soundManager = new SoundManager();
     }
 
     /**
      * Called periodically by the timer to advance the game state.
      * Moves the snake and repaints the game view.
+     * Also checks if the game ended, producing a sound effect.
      *
      * @param e the ActionEvent triggered by the timer
      */
@@ -55,6 +60,7 @@ public class Controller implements KeyListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (model.getGameState().isGameOver()) {
             timer.stop();
+            soundManager.playSound("game_over.wav");
         }
 
         view.repaint();

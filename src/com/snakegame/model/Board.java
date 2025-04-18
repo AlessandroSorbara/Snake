@@ -1,5 +1,7 @@
 package com.snakegame.model;
 
+import com.snakegame.view.utils.SoundManager;
+
 import java.util.Random;
 
 /**
@@ -18,6 +20,8 @@ public class Board {
     private Apple apple;
     private GameState gameState;
 
+    private SoundManager soundManager;
+
     /**
      * Constructs a new Board object.
      * Initializes the snake, apple, and game state.
@@ -26,6 +30,8 @@ public class Board {
         this.snake = new Snake();
         this.apple = new Apple();
         this.gameState = new GameState();
+
+        soundManager = new SoundManager();
     }
 
     /**
@@ -105,6 +111,7 @@ public class Board {
         snake.move(direction);
 
         if (snake.head().equals(apple.getPosition())) {
+            soundManager.playSound("crunch.wav");
             snake.grow();
             gameState.incrementScore();
             spawnApple();
