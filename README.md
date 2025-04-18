@@ -10,6 +10,7 @@ This is a classic **Snake Game** implemented in **Java** using the **Swing** lib
 - Scoring system;
 - Clean GUI with Java Swing;
 - MVC separation for easier scalability and debugging.
+- **New**: Italian brainrot added!
 
 ### 🧱 Project Structure (MVC)
 
