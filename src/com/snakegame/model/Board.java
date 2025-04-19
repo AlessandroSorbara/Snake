@@ -111,8 +111,7 @@ public class Board {
         snake.move(direction);
 
         if (snake.head().equals(apple.getPosition())) {
-            int clip = new Random().nextInt(18) + 1;
-            soundManager.playSound(String.valueOf(clip) + ".wav");
+            soundManager.playSound("crunch.wav", true);
             snake.grow();
             gameState.incrementScore();
             spawnApple();

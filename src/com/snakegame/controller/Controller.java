@@ -60,7 +60,7 @@ public class Controller implements KeyListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (model.getGameState().isGameOver()) {
             timer.stop();
-            soundManager.playSound("game_over.wav");
+            soundManager.playSound("game_over.wav", false);
         }
 
         view.repaint();

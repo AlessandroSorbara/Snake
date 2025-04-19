@@ -9,8 +9,8 @@ This is a classic **Snake Game** implemented in **Java** using the **Swing** lib
 - Game-over detection on collision;
 - Scoring system;
 - Clean GUI with Java Swing;
-- MVC separation for easier scalability and debugging.
-- **New**: Italian brainrot added!
+- MVC separation for easier scalability and debugging;
+- **NEW: Italian brainrot update: added 20 sounds!**
 
 ### 🧱 Project Structure (MVC)
 
