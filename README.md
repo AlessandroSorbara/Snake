@@ -37,7 +37,7 @@ This is a classic **Snake Game** implemented in **Java** using the **Swing** lib
 #### ⚡ Option 2: Run the JAR File (No IDE Needed)
 
 1. Make sure you have Java installed (JDK 8+)
-2. Download the latest `Snake.jar` from the [releases](#) section
+2. Download the latest `Snake.jar` from the [releases](https://github.com/AlessandroSorbara/Snake/releases) section
 3. Double-click the JAR file **or** run it from terminal:
    ```bash
    java -jar Snake.jar
