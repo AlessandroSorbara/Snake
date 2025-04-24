@@ -31,5 +31,13 @@ This is a classic **Snake Game** implemented in **Java** using the **Swing** lib
 1. Clone or download this repository;
 2. Open the project in your preferred IDE (e.g., IntelliJ, Eclipse, VS Code);
 3. Make sure Java JDK 8 or higher is installed;
-4. Mark the resources directory as **Resource Root**;
+4. Mark the resources directory as **Sources Root**;
 5. Run `SnakeGame.java`.
+
+#### ⚡ Option 2: Run the JAR File (No IDE Needed)
+
+1. Make sure you have Java installed (JDK 8+)
+2. Download the latest `Snake.jar` from the [releases](#) section
+3. Double-click the JAR file **or** run it from terminal:
+   ```bash
+   java -jar Snake.jar
